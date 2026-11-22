@@ -1,11 +1,11 @@
-# HoopsTrack – NBA Player and Team Performance Database
+# NBA Players System – Player and Team Performance Database
 
 **Student:** Ahmed Adam | **ID:** 28865
 **Course:** INSY 8311 – Database Development with PL/SQL | **Instructor:** Eric Maniraguha
-**Repository:** `ahmed_28865_hooptrack`
+**Repository:** `ahmed_28865_nbaPlayersSystem`
 
 ## Problem Statement
-Public NBA statistics are distributed as wide, flat files in which player, team and season details repeat on every row. Traded players appear on several rows in the same season, team names and abbreviations vary across eras, and nothing stops invalid stat lines (for example, field goals made greater than field goals attempted) from entering the data. Analysts, coaches and scouts therefore cannot reliably compare players and teams across seasons. HoopsTrack organises 1980–2026 NBA data into normalised Oracle tables, enforces data rules in PL/SQL and records every change in an audit log.
+Public NBA statistics are distributed as wide, flat files in which player, team and season details repeat on every row. Traded players appear on several rows in the same season, team names and abbreviations vary across eras, and nothing stops invalid stat lines (for example, field goals made greater than field goals attempted) from entering the data. Analysts, coaches and scouts therefore cannot reliably compare players and teams across seasons. NBA Players System organises 1980–2026 NBA data into normalised Oracle tables, enforces data rules in PL/SQL and records every change in an audit log.
 
 ## Objectives
 **Main objective:** Build a Third Normal Form (3NF) Oracle database with PL/SQL that makes NBA player and team performance data reliable to store, query and compare.
@@ -42,7 +42,7 @@ Licence: [verify on Kaggle page before submitting]. The data contains player nam
 | Function `true_shooting_pct` | Calculates PTS / (2 × (FGA + 0.44 × FTA)) |
 | Function `team_win_pct` | Returns a team's win percentage for a season |
 | Cursor | Loops through seasons to list the league leaders in each |
-| Package `hooptrack_pkg` | Groups the analytics procedures and functions |
+| Package `nba_players_pkg` | Groups the analytics procedures and functions |
 | Trigger | Rejects any stat line where made shots exceed attempts |
 | Trigger | Writes every INSERT, UPDATE and DELETE to `AUDIT_LOG` |
 | Restriction rule | Blocks data changes outside allowed days |
