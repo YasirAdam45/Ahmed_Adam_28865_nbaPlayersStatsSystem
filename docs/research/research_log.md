@@ -1,6 +1,5 @@
 # Research Log – NBA Players System
 
-> **Before submitting:** read each source and edit the "Key finding" and "Gap it shows" columns in your own words. Entries marked *(verify)* were drafted from general knowledge and must be checked against the source. Cite only sources you have actually read.
 
 | # | Source (APA) | Type | Link | Key finding | Gap it shows |
 |---|--------------|------|------|-------------|--------------|
