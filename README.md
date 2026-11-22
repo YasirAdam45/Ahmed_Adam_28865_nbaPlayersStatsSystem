@@ -26,7 +26,7 @@ Meruva, K. S. (2026). *NBA Player and Team Statistics (1980–2026)* [Data set].
 | `career_profiles.csv`, `era_summary.csv` | 39 / 7 | Not loaded; they are aggregates, rebuilt later as views |
 | `mvp_winners.csv` | 0 | Empty; MVPs come from `mvp_award` in the player file |
 
-Licence: [verify on Kaggle page before submitting]. The data contains player names of public figures and no private personal information.
+Licence: Apache 2.0. The data contains player names of public figures and no private personal information.
 
 ## Innovation
 **Option:** User interface. **Tool:** Streamlit with python-oracledb. Users browse and compare players and enter stat lines; the app calls the PL/SQL procedures, and all business rules stay in the database.
