@@ -71,5 +71,5 @@ logs the change, and analysts and auditors retrieve the data.
 **Published diagram link:** <[paste your link here](https://drive.google.com/file/d/1byglr146xGvUidh-VqZeRB7JG4TV_62q/view?usp=sharing)>
 
 **Supporting documents:**
-- [Diagram (PDF)]([docs/business_process/business_process_diagram.pdf](https://github.com/YasirAdam45/Ahmed_Adam_28865_nbaPlayesStatsSystem/blob/main/docs/business_process/business_process_diagram.pdf))
-- [Explanation (PDF)]([docs/business_process/business_process_explanation.pdf](https://github.com/YasirAdam45/Ahmed_Adam_28865_nbaPlayesStatsSystem/blob/main/docs/business%20process/business_process_explaination.pdf))
+- [Diagram (PDF)](docs/business_process/business_process_diagram.pdf)
+- [Explanation (PDF)](docs/business_process/business_process_explanation.pdf)
