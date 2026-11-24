@@ -71,5 +71,5 @@ logs the change, and analysts and auditors retrieve the data.
 **Published diagram link:** <[paste your link here](https://drive.google.com/file/d/1byglr146xGvUidh-VqZeRB7JG4TV_62q/view?usp=sharing)>
 
 **Supporting documents:**
-- [Diagram (PDF)](docs/business_process/business_process_diagram.pdf)
+- [Business Process Diagram](docs/business_process/business_process_diagram.pdf)
 - [Explanation (PDF)](docs/business_process/business_process_explanation.pdf)
