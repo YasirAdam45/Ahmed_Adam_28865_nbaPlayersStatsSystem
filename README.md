@@ -72,4 +72,4 @@ logs the change, and analysts and auditors retrieve the data.
 
 **Supporting documents:**
 - [Business Process Diagram](docs/business_process/business_process_diagram.pdf)
-- [Explanation (PDF)](docs/business_process/business_process_explanation.pdf)
+- [Explanation (PDF)](docs/business_process/business_process_explaination.pdf)
