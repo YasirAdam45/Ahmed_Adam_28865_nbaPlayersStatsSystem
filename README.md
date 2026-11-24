@@ -68,7 +68,7 @@ logs the change, and analysts and auditors retrieve the data.
 
 **Modeling tool:** draw.io (diagrams.net)
 
-**Published diagram link:** <[the diagram](https://drive.google.com/file/d/1byglr146xGvUidh-VqZeRB7JG4TV_62q/view?usp=sharing)>
+**Published diagram link:** <[https://drive.google.com/file/d/1byglr146xGvUidh-VqZeRB7JG4TV_62q/view?usp=sharing](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=business%20process%20diagram.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1byglr146xGvUidh-VqZeRB7JG4TV_62q%26export%3Ddownload)>
 
 **Supporting documents:**
 - [Business Process Diagram](docs/business_process/business_process_diagram.pdf)
