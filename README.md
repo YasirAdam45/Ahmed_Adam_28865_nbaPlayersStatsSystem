@@ -59,3 +59,17 @@ Licence:CC0: Public Domain (Permits educational and academic research use withou
 - Oracle Corporation. (2024). *Oracle Database PL/SQL language reference (21c/23ai)*. Oracle Help Center. https://docs.oracle.com/en/database/oracle/oracle-database/
 - Sarlis, V., & Tjortjis, C. (2020). Sports analytics — Evaluation of basketball players and team performance. *Information Systems, 93*, 101562. https://doi.org/10.1016/j.is.2020.101562
 - Sports Reference LLC. (2026). *Basketball-Reference database architecture & historical logs*. https://www.basketball-reference.com
+
+## Phase I - Business Process Modeling
+
+**Process:** Recording and validating a player's season stat line. A clerk enters
+a stat line through the web form, the Oracle database validates it, stores it and
+logs the change, and analysts and auditors retrieve the data.
+
+**Modeling tool:** draw.io (diagrams.net)
+
+**Published diagram link:** <[paste your link here](https://drive.google.com/file/d/1byglr146xGvUidh-VqZeRB7JG4TV_62q/view?usp=sharing)>
+
+**Supporting documents:**
+- [Diagram (PDF)](docs/business_process/business_process_diagram.pdf)
+- [Explanation (PDF)](docs/business_process/business_process_explanation.pdf)
