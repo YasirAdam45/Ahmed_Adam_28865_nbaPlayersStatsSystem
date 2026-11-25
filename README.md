@@ -17,7 +17,7 @@ Public NBA statistics are published as wide flat files in which player, team and
 1. Design and build eight related 3NF tables with enforced constraints.
 2. Calculate team winning percentage and player scoring efficiency with stored functions, and rank seasonal league leaders with a parameterized cursor.
 3. Block invalid stat lines with triggers and record every data change in an audit log.
-4. Provide a live web interface connected to the Oracle database (innovation).
+4. Provide a live Tableau dashboard connected to the Oracle database (innovation).
 
 ## Data Source
 
@@ -34,7 +34,20 @@ Licence: CC0: Public Domain (permits educational and academic use). The data hol
 
 ## Innovation
 
-**Option:** User interface. **Tool:** Python Streamlit with python-oracledb. Users filter seasons, compare player and team metrics, and enter new stat lines through a form that calls `add_player_season_stat` in `nba_players_pkg`. All business rules stay in Oracle PL/SQL.
+**Option:** Analytics dashboard. **Tool:** Tableau Desktop, connected live to the Oracle pluggable database.
+
+The dashboard reads Oracle views (created in Phase IV) through a read-only database user. It is documented in the [`innovation/`](innovation/) folder.
+
+| Dashboard sheet | Oracle view | What it shows | Filters |
+|---|---|---|---|
+| Team performance | `vw_team_season_summary` | Wins, net rating, playoff and championship seasons per team | Season, era, conference, division |
+| Payroll vs wins | `vw_team_season_summary` | Whether higher payroll produces more wins | Season, era, team |
+| Season league leaders | `vw_season_leaders` | Top 10 scorers of the selected season | Season, position |
+| Player comparison | `vw_player_season_detail` | Points per 36 minutes, PER and win shares across seasons for chosen players | Player, team, season |
+
+**Business rules stay in PL/SQL.** Tableau only reads data. New stat lines enter the database through `add_player_season_stat`, where the triggers validate every value and write the audit log. The live demo adds a stat line with the procedure, refreshes the Tableau data source and shows the new row on the dashboard.
+
+**Documentation (`innovation/` folder):** what the dashboard does, how to connect and run it, the Tableau workbook, and screenshots.
 
 ## Planned Tables
 
@@ -71,11 +84,12 @@ Seven tables are built from the data, and the eighth (the audit log) is created 
 - **Phase 0:** Research and proposal: `docs/research/`, `docs/proposal/`, `docs/presentation/`
 - **Phase I:** Business process modeling: `docs/business_process/`
 - **Phase II:** Data sourcing and normalization: `data/`, `docs/design/`
+- **Innovation:** Tableau dashboard: `innovation/` (added in Phase VII)
 - Later phases are added as they are completed.
 
 ## Phase I - Business Process Modeling
 
-**Process:** Player Season Stat Recording. A clerk enters a stat line in the Streamlit form, which submits it to `add_player_season_stat`. The Oracle database checks that the player exists, rejects duplicates, validates the statistics, applies the non-working-day rule, inserts the record and writes an audit log entry. The clerk corrects any rejected entry. Analysts, coaches and scouts retrieve the data, and the auditor reviews the audit log.
+**Process:** Player Season Stat Recording. A clerk enters a stat line, which is submitted to `add_player_season_stat`. The Oracle database checks that the player exists, rejects duplicates, validates the statistics, applies the non-working-day rule, inserts the record and writes an audit log entry. The clerk corrects any rejected entry. Analysts, coaches and scouts retrieve the data, and the auditor reviews the audit log.
 
 **Modeling tool:** draw.io (diagrams.net)
 
