@@ -13,4 +13,4 @@
 ## Dataset check
 - Licence on Kaggle page: CC0: Public Domain
 - Date collected: 2026-11-17
-- Confirm `team` values in the player file match `team_id` in the team file: Yes. Both files contain the same 30 team codes (checked with `data/quality_check.py`)
+
