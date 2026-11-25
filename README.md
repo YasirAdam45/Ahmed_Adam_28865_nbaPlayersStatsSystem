@@ -1,6 +1,6 @@
 # NBA Players Stats System: Player and Team Performance Database
 
-**Student:** Ahmed Adam | **ID:** 28865
+**Student:** Ahmed Adam | **ID:** 28865 | **Group:** B  
 **Course:** INSY 8311 – Database Development with PL/SQL | **Instructor:** Eric Maniraguha
 **Repository:** `Ahmed_Adam_28865_nbaPlayersStatsSystem`
 
