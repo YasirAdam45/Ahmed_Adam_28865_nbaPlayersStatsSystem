@@ -10,7 +10,7 @@
 | Author | Meruva, K. S. (2026) |
 | Platform | Kaggle |
 | Link | https://www.kaggle.com/datasets/meruvakodandasuraj/nba-player-and-team-statistics-19802026 |
-| Licence | CC0: Public Domain (as stated in the Phase 0 proposal; confirm on the Kaggle page) |
+| Licence | CC0: Public Domain  |
 | Date collected | **2026/11/17** |
 | Format | CSV, UTF-8, comma separated, one header line |
 | Location in repo | `data/raw/` (files are kept exactly as downloaded and never edited) |
