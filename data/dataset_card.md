@@ -1,6 +1,6 @@
 # Dataset Card: NBA Player and Team Statistics (1980–2026)
 
-> **Author:** Ahmed Adam | **Student ID:** 28865 | **Group:** B | **Project:** NBA Players Stats System (INSY 8311, Phase II)
+> **Studen:** Ahmed Adam | **Student ID:** 28865 | **Group:** B | **Project:** NBA Players Stats System (INSY 8311, Phase II)
 
 ## 1. Source
 
