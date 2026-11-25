@@ -1,6 +1,6 @@
 # Data Dictionary (logical design)
 
-> **Author:** Ahmed Adam | **Student ID:** 28865 | **Group:** Group A | **Project:** NBA Players Stats System (INSY 8311, Phase II)
+> **Author:** Ahmed Adam | **Student ID:** 28865 | **Group:** Group B | **Project:** NBA Players Stats System (INSY 8311, Phase II)
 
 Oracle data types and sizes are left out on purpose; they are added in Phase IV. "Required" means the column can never be empty. "Source" shows the raw CSV field the column comes from (see the full mapping in `normalization.md` section 5). The ERD is in `erd.png`.
 
