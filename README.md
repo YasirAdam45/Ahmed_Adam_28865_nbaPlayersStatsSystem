@@ -1,75 +1,116 @@
-# NBA Players System – Player and Team Performance Database
+# NBA Players Stats System: Player and Team Performance Database
 
 **Student:** Ahmed Adam | **ID:** 28865
 **Course:** INSY 8311 – Database Development with PL/SQL | **Instructor:** Eric Maniraguha
-**Repository:** `ahmed_28865_nbaPlayersSystem`
+**Repository:** `Ahmed_Adam_28865_nbaPlayersStatsSystem`
 
 ## Problem Statement
-Public NBA statistics are distributed as wide, flat files in which player, team and season details repeat on every row. Traded players appear on several rows in the same season, team names and abbreviations vary across eras, and nothing stops invalid stat lines (for example, field goals made greater than field goals attempted) from entering the data. Analysts, coaches and scouts therefore cannot reliably compare players and teams across seasons. NBA Players System organises 1980–2026 NBA data into normalised Oracle tables, enforces data rules in PL/SQL and records every change in an audit log.
+
+Public NBA statistics are published as wide flat files in which player, team and season details repeat on every row and nothing enforces integrity. The dataset chosen for this project (50,785 player rows and 1,410 team rows, 1980–2026) shows the consequences: one player identifier (`P00001`) is shared by 46 different players, which creates 143 duplicate keys; the stored win percentage disagrees with wins ÷ (wins + losses) in 1,227 of 1,410 team seasons; and no rule prevents impossible stat lines, such as more than 82 games or a shooting percentage above 1. Analysts, coaches and scouts therefore struggle to compare players and teams reliably across seasons. Existing portals such as Basketball-Reference are read-only and offer no custom integrity rules, controlled data entry or audit trail.
 
 ## Objectives
-**Main objective:** Build a Third Normal Form (3NF) Oracle database with PL/SQL that makes NBA player and team performance data reliable to store, query and compare.
+
+**Main objective:** Build a Third Normal Form (3NF) Oracle database with PL/SQL that makes multi-decade NBA player and team performance data reliable to store, query and compare.
 
 **Specific objectives**
-1. Normalise the raw player and team files into at least 5 related tables with enforced constraints.
-2. Compute efficiency metrics (e.g. true shooting %) and league leaders with PL/SQL functions and cursors.
-3. Block invalid stat lines with triggers and record all data changes in an audit log.
-4. Provide an interactive interface for browsing, comparing and entering data (innovation).
+
+1. Design and build eight related 3NF tables with enforced constraints.
+2. Calculate team winning percentage and player scoring efficiency with stored functions, and rank seasonal league leaders with a parameterized cursor.
+3. Block invalid stat lines with triggers and record every data change in an audit log.
+4. Provide a live web interface connected to the Oracle database (innovation).
 
 ## Data Source
+
 Meruva, K. S. (2026). *NBA Player and Team Statistics (1980–2026)* [Data set]. Kaggle. https://www.kaggle.com/datasets/meruvakodandasuraj/nba-player-and-team-statistics-19802026
 
 | File | Rows | Used for |
 |---|---|---|
-| `player_season_stats.csv` | 50,785 | Players, positions, seasons, player season statistics, awards, salary |
+| `player_season_stats.csv` | 50,785 | Players, positions, player season statistics, awards, salary |
 | `team_season_records.csv` | 1,410 | Teams, conferences, divisions, eras, team season records |
-| `career_profiles.csv`, `era_summary.csv` | 39 / 7 | Not loaded; they are aggregates, rebuilt later as views |
-| `mvp_winners.csv` | 0 | Empty; MVPs come from `mvp_award` in the player file |
+| `career_profiles.csv`, `era_summary.csv` | 39 / 7 | Not loaded. They are aggregates, rebuilt later as views |
+| `mvp_winners.csv` | 0 | Not loaded. It is empty, and `mvp_award` is 0 in every row of the player file |
 
-Licence:CC0: Public Domain (Permits educational and academic research use without restriction). The data contains player names of public figures and no private personal information.
+Licence: CC0: Public Domain (permits educational and academic use). The data holds public sports statistics and no private personal information. Player identifiers are replaced by anonymized `PLR_` codes when the data is loaded. See [`data/dataset_card.md`](data/dataset_card.md).
 
 ## Innovation
-**Option:** User interface. **Tool:** Streamlit with python-oracledb. Users browse and compare players and enter stat lines; the app calls the PL/SQL procedures, and all business rules stay in the database.
+
+**Option:** User interface. **Tool:** Python Streamlit with python-oracledb. Users filter seasons, compare player and team metrics, and enter new stat lines through a form that calls `add_player_season_stat` in `nba_players_pkg`. All business rules stay in Oracle PL/SQL.
 
 ## Planned Tables
-`TEAM`, `ERA`, `PLAYER`, `POSITION`, `SEASON`, `PLAYER_SEASON_STAT`, `TEAM_SEASON_STAT`, `AUDIT_LOG`
+
+Seven tables are built from the data, and the eighth (the audit log) is created in Phase VI.
+
+| Table | Purpose |
+|---|---|
+| `DIVISIONS` | Division and conference |
+| `TEAMS` | The 30 franchises, each in one division |
+| `SEASONS` | Seasons 1980–2026 with their era |
+| `POSITIONS` | The five court positions |
+| `PLAYERS` | One row per real player, with an anonymized code and primary position |
+| `PLAYER_SEASON_STATS` | One stat line per player, season and team (junction table) |
+| `TEAM_SEASON_STATS` | One record per team and season (junction table) |
+| `STAT_AUDIT_LOG` | Every INSERT, UPDATE and DELETE (Phase VI) |
 
 ## Planned PL/SQL Features
+
 | Feature | Where it is used |
 |---|---|
-| Procedure `add_player_season_stat` | Inserts a validated stat line for a player and season |
-| Procedure `trade_player` | Moves a player to another team in the middle of a season |
-| Function `true_shooting_pct` | Calculates PTS / (2 × (FGA + 0.44 × FTA)) |
-| Function `team_win_pct` | Returns a team's win percentage for a season |
-| Cursor | Loops through seasons to list the league leaders in each |
-| Package `nba_players_pkg` | Groups the analytics procedures and functions |
-| Trigger | Rejects any stat line where made shots exceed attempts |
-| Trigger | Writes every INSERT, UPDATE and DELETE to `AUDIT_LOG` |
-| Restriction rule | Blocks data changes outside allowed days |
-| Custom exceptions | Handle unknown players and duplicate player-season entries |
+| Procedure `add_player_season_stat` | Checks the player exists, rejects a duplicate, validates ranges and inserts a stat line |
+| Procedure `trade_player` | Moves a player to another team |
+| Function `team_win_pct` | Calculates wins ÷ (wins + losses), because the stored `win_pct` is inconsistent |
+| Function `points_per_36` | Scoring efficiency from points and minutes per game |
+| Cursor `cur_season_leaders` | Parameterized by season; ranks the qualified players of that season |
+| Package `nba_players_pkg` | Groups all procedures, functions and the cursor |
+| Trigger `trg_validate_stat_line` | Blocks games outside 1–82, minutes above 48 and percentages outside 0–1 |
+| Trigger `trg_audit_stats` | Writes every INSERT, UPDATE and DELETE to `STAT_AUDIT_LOG` |
+| Restriction trigger | Blocks data changes on non-working days |
+| Custom exceptions | Unknown player and duplicate stat line |
 
 ## Project Phases
-- Phase 0 – Research and proposal: `docs/research/`, `docs/proposal/`, `docs/presentation/`
-- Later phases are added as they are completed.
 
-## References
-- Kubatko, J., Oliver, D., Pelton, K., & Rosenbaum, D. T. (2007). A starting point for analyzing basketball statistics. *Journal of Quantitative Analysis in Sports, 3*(3). https://doi.org/10.2202/1559-0410.1070
-- Meruva, K. S. (2026). *NBA Player and Team Statistics (1980–2026)* [Data set]. Kaggle. https://www.kaggle.com/datasets/meruvakodandasuraj/nba-player-and-team-statistics-19802026
-- National Basketball Association. (2025). *NBA advanced stats official documentation and glossary*. NBA Media Central. https://www.nba.com/stats/help/glossary
-- Oracle Corporation. (2024). *Oracle Database PL/SQL language reference (21c/23ai)*. Oracle Help Center. https://docs.oracle.com/en/database/oracle/oracle-database/
-- Sarlis, V., & Tjortjis, C. (2020). Sports analytics — Evaluation of basketball players and team performance. *Information Systems, 93*, 101562. https://doi.org/10.1016/j.is.2020.101562
-- Sports Reference LLC. (2026). *Basketball-Reference database architecture & historical logs*. https://www.basketball-reference.com
+- **Phase 0:** Research and proposal: `docs/research/`, `docs/proposal/`, `docs/presentation/`
+- **Phase I:** Business process modeling: `docs/business_process/`
+- **Phase II:** Data sourcing and normalization: `data/`, `docs/design/`
+- Later phases are added as they are completed.
 
 ## Phase I - Business Process Modeling
 
-**Process:** Recording and validating a player's season stat line. A clerk enters
-a stat line through the web form, the Oracle database validates it, stores it and
-logs the change, and analysts and auditors retrieve the data.
+**Process:** Player Season Stat Recording. A clerk enters a stat line in the Streamlit form, which submits it to `add_player_season_stat`. The Oracle database checks that the player exists, rejects duplicates, validates the statistics, applies the non-working-day rule, inserts the record and writes an audit log entry. The clerk corrects any rejected entry. Analysts, coaches and scouts retrieve the data, and the auditor reviews the audit log.
 
 **Modeling tool:** draw.io (diagrams.net)
 
-**Published diagram link:** <[https://drive.google.com/file/d/1byglr146xGvUidh-VqZeRB7JG4TV_62q/view?usp=sharing](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=business%20process%20diagram.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1byglr146xGvUidh-VqZeRB7JG4TV_62q%26export%3Ddownload)>
+**Published diagram link:** https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=business%20process%20diagram.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1byglr146xGvUidh-VqZeRB7JG4TV_62q%26export%3Ddownload
 
 **Supporting documents:**
-- [Business Process Diagram](docs/business_process/business_process_diagram.pdf)
-- [Explanation (PDF)](docs/business_process/business_process_explaination.pdf)
+
+- [Business process diagram (PDF)](docs/business_process/business_process_diagram.pdf)
+- [Business process explanation (PDF)](docs/business_process/business_process_explaination.pdf)
+
+## Phase II - Data Sourcing, Normalization and Logical Design
+
+| Deliverable | File |
+|---|---|
+| Raw data, unedited | [`data/raw/`](data/raw/) |
+| Dataset card and data quality report | [`data/dataset_card.md`](data/dataset_card.md) |
+| Quality check script (reproduces every count) | [`data/quality_check.py`](data/quality_check.py) |
+| Normalization UNF → 1NF → 2NF → 3NF, field mapping, class demo | [`docs/design/normalization.md`](docs/design/normalization.md) |
+| Logical ERD (crow's-foot) | [`docs/design/erd.png`](docs/design/erd.png) |
+| Data dictionary | [`docs/design/data_dictionary.md`](docs/design/data_dictionary.md) |
+
+**Key findings from the data quality checks**
+
+- One raw `player_id` (`P00001`) is shared by 46 players, so a player is identified by the pair (`player_id`, `player_name`): **8,045 players**, not 8,000.
+- No player has two teams in one season, and there are no summary rows. The schema still allows trades because `team_id` is part of the unique key.
+- `win_pct` is inconsistent in 1,227 of 1,410 rows and `net_rating` is derivable, so neither is stored.
+- No MVP is recorded anywhere in the data (`mvp_award` is 0 in all rows).
+
+Run the checks from the repository root: `python data/quality_check.py`
+
+## References
+
+- Kubatko, J., Oliver, D., Pelton, K., & Rosenbaum, D. T. (2007). A starting point for analyzing basketball statistics. *Journal of Quantitative Analysis in Sports, 3*(3). https://doi.org/10.2202/1559-0410.1070
+- Meruva, K. S. (2026). *NBA player and team statistics (1980–2026)* [Data set]. Kaggle. https://www.kaggle.com/datasets/meruvakodandasuraj/nba-player-and-team-statistics-19802026
+- National Basketball Association. (2025). *NBA advanced stats official documentation and glossary*. NBA Media Central. https://www.nba.com/stats/help/glossary
+- Oracle Corporation. (2024). *Oracle Database PL/SQL language reference (21c/23ai)*. Oracle Help Center. https://docs.oracle.com/en/database/oracle/oracle-database/
+- Sarlis, V., & Tjortjis, C. (2020). Sports analytics: Evaluation of basketball players and team performance. *Information Systems, 93*, Article 101562. https://doi.org/10.1016/j.is.2020.101562
+- Sports Reference LLC. (2026). *Basketball-Reference database architecture and historical logs*. https://www.basketball-reference.com
