@@ -93,7 +93,7 @@ Seven tables are built from the data, and the eighth (the audit log) is created 
 
 **Modeling tool:** draw.io (diagrams.net)
 
-**Published diagram link:** https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=business%20process%20diagram.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1byglr146xGvUidh-VqZeRB7JG4TV_62q%26export%3Ddownload
+**Published diagram link:** (https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=business%20process%20diagram.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1byglr146xGvUidh-VqZeRB7JG4TV_62q%26export%3Ddownload)
 
 **Supporting documents:**
 
