@@ -1,6 +1,6 @@
 # Dataset Card: NBA Player and Team Statistics (1980–2026)
 
-> **Author:** Ahmed Adam | **Student ID:** 28865 | **Group:** [B] | **Project:** NBA Players Stats System (INSY 8311, Phase II)
+> **Author:** Ahmed Adam | **Student ID:** 28865 | **Group:** B | **Project:** NBA Players Stats System (INSY 8311, Phase II)
 
 ## 1. Source
 
@@ -11,7 +11,7 @@
 | Platform | Kaggle |
 | Link | https://www.kaggle.com/datasets/meruvakodandasuraj/nba-player-and-team-statistics-19802026 |
 | Licence | CC0: Public Domain (as stated in the Phase 0 proposal; confirm on the Kaggle page) |
-| Date collected | **[2026/11/17]** |
+| Date collected | **2026/11/17** |
 | Format | CSV, UTF-8, comma separated, one header line |
 | Location in repo | `data/raw/` (files are kept exactly as downloaded and never edited) |
 
