@@ -1,6 +1,6 @@
 # Normalization: UNF → 1NF → 2NF → 3NF
 
-> **Author:** Ahmed Adam | **Student ID:** 28865 | **Group:** Group B | **Project:** NBA Players Stats System (INSY 8311, Phase II)
+> **Student:** Ahmed Adam | **Student ID:** 28865 | **Group:** Group B | **Project:** NBA Players Stats System (INSY 8311, Phase II)
 
 Two flat CSV files are normalized into 7 related tables. Every table below was built from the real data, and a **lossless-join test** (section 6) rebuilds all 50,785 player rows and all 1,410 team rows from the 3NF tables with no difference.
 
