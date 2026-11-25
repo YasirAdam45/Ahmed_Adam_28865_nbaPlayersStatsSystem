@@ -98,7 +98,7 @@ Seven tables are built from the data, and the eighth (the audit log) is created 
 **Supporting documents:**
 
 - [Business process diagram (PDF)](docs/business_process/business_process_diagram.pdf)
-- [Business process explanation (PDF)](docs/business_process/business_process_explaination.pdf)
+- [Business process explanation (PDF)](docs/business_process/business_process_explanation.pdf)
 
 ## Phase II - Data Sourcing, Normalization and Logical Design
 
